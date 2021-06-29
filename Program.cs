@@ -44,7 +44,7 @@ namespace bot_tg_sharp
             char[] chr = msg.Text.ToCharArray();
             if (chr[0] == '/' /*msg.Text != null*/)
             {
-                Console.WriteLine($"Пришло сообщение с текстом: {msg.Text}\nОтправитель: {msg.From.Username} \nВремя: {DateTime.Now}\nЧат: {msg.Chat.Title}");
+                Console.WriteLine($"Пришло сообщение с текстом: {msg.Text}\nОтправитель: {msg.From.Username}({msg.Chat.Id}) \nВремя: {DateTime.Now}\nЧат: {msg.Chat.Title}");
                 string[] args = msg.Text.ToLower().Split(' ');
                 
                 switch (args[0])
@@ -237,6 +237,27 @@ namespace bot_tg_sharp
                                 );
                         }
                         
+                    break;
+
+                    case "/sendmsg":
+                    if (msg.Chat.Id == 662959105)
+                    {
+                        if (args.Length == 3)
+                        {
+                            var send = await client.SendTextMessageAsync(
+                                chatId: args[1],
+                                text: $"`Отправитель:* Lamborge \n *Сообщение:* \nargs[2]"
+                            );
+                        }
+                        else
+                        {
+                            var send = await client.SendTextMessageAsync(
+                                chatId: msg.Chat.Id,
+                                text: "loss argument",
+                                replyToMessageId: msg.MessageId
+                            );
+                        }
+                    }    
                     break;
 
 
