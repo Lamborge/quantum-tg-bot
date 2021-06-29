@@ -17,6 +17,17 @@ namespace bot_tg_sharp
         private static TelegramBotClient client;
         private static Random rnd = new Random();
 
+        static string[] sound_file_id_stalker = {
+            "CQACAgIAAxkBAAEDD_1g2rVgmO_5djk_99E0qxyeEFsLkAACOw8AAsTP0Upxnw72aGofhB4E",
+            "CQACAgIAAxkBAAEDD_5g2rVo9VM0rIF54K9HAAH7UyoI-JgAAjwPAALEz9FKk1JeRvJP5qEeBA",
+            "CQACAgIAAxkBAAEDD_9g2rVrRU1dEvmdhSj-8wkrYE7x1wACPQ8AAsTP0Urxn_-05KmVah4E",
+            "CQACAgIAAxkBAAEDEAABYNq1biwdWjzSA1VrNfukSU7QIxkAAj4PAALEz9FKfjmhXLojrR4eBA",
+            "CQACAgIAAxkBAAEDEAFg2rVxmitO1b78ttxq3vBf4BZtzgACPw8AAsTP0UoZEOSe-3Tnvh4E",
+            "CQACAgIAAxkBAAEDEAJg2rV0_Dtf3zlDbp1O4s6GRAmPwQACQA8AAsTP0Urw86HHV1W5pR4E",
+            "CQACAgIAAxkBAAEDEANg2rV3zH0GrtR9BWoeMLSR8_jGcwACQQ8AAsTP0Uq0V6RYB2xbVB4E",
+            "CQACAgIAAxkBAAEDEARg2rV69A5CUJuujmSiuZduob9T2gACQg8AAsTP0UqtrxZgOn_klR4E"
+            };
+
         static void Main(string[] args)
         {
             client = new TelegramBotClient(token);
@@ -57,28 +68,35 @@ namespace bot_tg_sharp
 
                     case "/shmil@quantumlamborge_bot":
                     case "/shmil":
-                        string mypath= $"{Directory.GetCurrentDirectory()}/video/shmil.mp4";
-                        using (var fileStream = new FileStream(mypath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                        {
-                            var video = await client.SendVideoAsync(
-                                chatId: msg.Chat.Id,
-                                replyToMessageId: msg.MessageId,
-                                video: new InputOnlineFile(fileStream),
-                                supportsStreaming: true
-
-                            );
-                        }
+                        var video = await client.SendVideoAsync(
+                            chatId: msg.Chat.Id,
+                            replyToMessageId: msg.MessageId,
+                            video: "BAACAgIAAxkBAAEDECNg2rf5KM5oeea1_TEg45LSBo55DQACRg8AAsTP0UoJUTgBIQ7GqR4E",
+                            supportsStreaming: true
+                        );
                     break;
 
                     case "/reverse@quantumlamborge_bot":
                     case "/reverse":
                         try
                         {
-                            var reverse = await client.SendTextMessageAsync(
+                            try
+                            {
+                                var reverse = await client.SendTextMessageAsync(
                                 msg.Chat.Id,
                                 text: ReverseText(msg.ReplyToMessage.Text),
                                 replyToMessageId: msg.MessageId     
-                            );
+                                );
+                            }
+                            catch
+                            {
+                                var reverse = await client.SendTextMessageAsync(
+                                msg.Chat.Id,
+                                text: ReverseText(args[1]),
+                                replyToMessageId: msg.MessageId     
+                                );
+                            }
+                            
                         }
                         catch
                         {
@@ -111,7 +129,7 @@ namespace bot_tg_sharp
                                 msg.Chat.Id,
                                 parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown,
                                 replyToMessageId: msg.MessageId,
-                                text: $"*ID:* {msg.ReplyToMessage.Chat.Id}\n*Invite link:* {msg.ReplyToMessage.Chat.InviteLink}\n*Username:* {msg.ReplyToMessage.Chat.Username}\n*Title:* {msg.ReplyToMessage.Chat.Title}\n*Bio:* {msg.ReplyToMessage.Chat.Description}\n*Pinned message:* {msg.ReplyToMessage.Chat.PinnedMessage}\n*Slow mode delay:* {msg.ReplyToMessage.Chat.SlowModeDelay}\n*Location:* {msg.ReplyToMessage.Chat.Location}"
+                                text: $"*ID:* {msg.Chat.Id}\n*Invite link:* {msg.Chat.InviteLink}\n*Username:* {msg.Chat.Username}\n*Title:* {msg.Chat.Title}\n*Bio:* {msg.Chat.Description}\n*Pinned message:* {msg.Chat.PinnedMessage}\n*Slow mode delay:* {msg.Chat.SlowModeDelay}\n*Location:* {msg.Chat.Location}"
                             );
                         }
                         catch 
@@ -121,34 +139,30 @@ namespace bot_tg_sharp
                     break;
 
                     case "/anekdot@quantumlamborge_bot":
-                    case "/anekdot":
-                        using (var stream = System.IO.File.OpenRead($"{Directory.GetCurrentDirectory()}/audio/stalker/{rnd.Next(9)}.mp3")) {
+                    case "/anekdot":                
                         msg = await client.SendAudioAsync(
                         chatId: e.Message.Chat,
-                        audio: stream,
+                        audio: sound_file_id_stalker[rnd.Next(8)],
                         title: "Quantum - Анекдот",
                         caption: "Внимение анекдот!",
                         replyToMessageId: msg.MessageId                        
-                        );
-                        }
+                        );          
                     break;
 
                     case "/doom@quantumlamborge_bot":
                     case "/doom":
-                        using (var stream = System.IO.File.OpenRead($"{Directory.GetCurrentDirectory()}/audio/doom/doom_eternal.mp3")) {
                         msg = await client.SendAudioAsync(
                         chatId: e.Message.Chat,
-                        audio: stream,
+                        audio: "CQACAgIAAxkBAAEDECBg2rYpaPYRsgo59qVK7K8XOaPIyQACRA8AAsTP0Up8PPGJpGwgEh4E",
                         title: "Rip and Tear - Until it is Done",
                         replyToMessageId: msg.MessageId                        
                         );
-                        }
                     break;
 
                     case "/randomfile@quantumlamborge_bot":
                     case "/randomfile":
 
-                        using (FileStream fstream = new FileStream($"{Directory.GetCurrentDirectory()}/file/file.txt", FileMode.OpenOrCreate))
+                        using (FileStream fstream = new FileStream($"./file/file.txt", FileMode.OpenOrCreate))
                         {
                             // преобразуем строку в байты
                             byte[] byte_text = new byte[512];
@@ -160,14 +174,14 @@ namespace bot_tg_sharp
                             fstream.Write(byte_text, 0, byte_text.Length);
                         }
 
-                        using (var stream = System.IO.File.OpenRead($"{Directory.GetCurrentDirectory()}/file/file.txt")) {
+                        using (var stream = System.IO.File.OpenRead($"./file/file.txt")) {
                             msg = await client.SendDocumentAsync(
                             chatId: e.Message.Chat,
                             document: stream,                            
                             replyToMessageId: msg.MessageId                        
                             );
                         }
-                        File.Delete($"{Directory.GetCurrentDirectory()}/file/file.txt");
+                        File.Delete($"./file/file.txt");
 
                     break;    
 
@@ -193,10 +207,10 @@ namespace bot_tg_sharp
                                 );
                         }
 
-                        else if (File.Exists($"{Directory.GetCurrentDirectory()}/ascii/{args[1]}.txt"))
+                        else if (File.Exists($"./ascii/{args[1]}.txt"))
                         {
                             string textFromFile = "";
-                            using (FileStream fstream = File.OpenRead($"{Directory.GetCurrentDirectory()}/ascii/{args[1]}.txt"))
+                            using (FileStream fstream = File.OpenRead($"./ascii/{args[1]}.txt"))
                             {
                                 // преобразуем строку в байты
                                 byte[] array = new byte[fstream.Length];
