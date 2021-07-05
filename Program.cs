@@ -58,7 +58,14 @@ namespace bot_tg_sharp
             char[] chr = msg.Text.ToCharArray();
             if (chr[0] == '/' /*msg.Text != null*/)
             {
-                Console.WriteLine($"Пришло сообщение с текстом: {msg.Text}\nОтправитель: {msg.From.Username}({msg.Chat.Id}) \nВремя: {DateTime.Now}\nЧат: {msg.Chat.Title}");
+                string log = $"Пришло сообщение с текстом: {msg.Text}\nОтправитель: {msg.From.Username}({msg.Chat.Id}) \nВремя: {DateTime.Now}\nЧат: {msg.Chat.Title}";
+
+                Console.WriteLine(log);
+                await client.SendTextMessageAsync(
+                            chatId: 662959105,
+                            text: log
+                        );
+
                 string[] args = msg.Text.ToLower().Split(' ');
                 
                 switch (args[0])
