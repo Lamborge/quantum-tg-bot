@@ -283,14 +283,14 @@ namespace bot_tg_sharp
                         try
                         {
                             string res = "";
-                                for (var i = 1; i < args.Length; i++)
+                                for (var i = 2; i < args.Length; i++)
                                 {
-                                    res+=args[i];
+                                    res+=args[i] + " ";
                                 }
 
                             var send = await client.SendTextMessageAsync(
                                 chatId: args[1],
-                                text: $"*Отправитель:* Lamborge \n *Сообщение:* \n{res}",
+                                text: $"*Отправитель:* Lamborge \n*Сообщение:* \n{res}",
                                 parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
                             );
                         }
