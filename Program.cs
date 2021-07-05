@@ -28,6 +28,20 @@ namespace bot_tg_sharp
             "CQACAgIAAxkBAAEDEARg2rV69A5CUJuujmSiuZduob9T2gACQg8AAsTP0UqtrxZgOn_klR4E"
             };
 
+        static string[] gachi_sound = {
+            "CQACAgIAAxkBAAEDHf1g4t-KN3cjmOiLD1ATQiCMXrufSQACqhAAAnfSGUtiy-i21-8_th4E",
+            "CQACAgIAAxkBAAEDHf5g4t-OtP-oClmxCji1cdp6I5vCQAACqxAAAnfSGUvJLvRTShVINR4E",
+            "CQACAgIAAxkBAAEDHf9g4t-RgkfkdS7fkflFJFyfUaliLgACrBAAAnfSGUvQHkn_OLTxfx4E",
+            "CQACAgIAAxkBAAEDHgABYOLflDZIUOASevokwfTYsm-VaV8AAq0QAAJ30hlLvhYBsBi_VDoeBA",
+            "CQACAgIAAxkBAAEDHgFg4t-X2KbcqtRD_BcaMlELl8yw7QACrhAAAnfSGUs8npqSGBI4RB4E",
+            "CQACAgIAAxkBAAEDHgJg4t-aDI_OIbdbDWlTPUcjpnac0gACrxAAAnfSGUud2GbZxz7QJh4E",
+            "CQACAgIAAxkBAAEDHgNg4t-diJVz0c8ytrRxCLepWNUO1wACsBAAAnfSGUsz6o-WkqvDEB4E",
+            "CQACAgIAAxkBAAEDHgRg4t-g3jau-kzRYlD2Yier7o94SwACsRAAAnfSGUv44zeiztoSNx4E",
+            "CQACAgIAAxkBAAEDHgVg4t-jLb5sjvzauZQ12S6brwvK6AACshAAAnfSGUv1vPmIyX9dEx4E",
+            "CQACAgIAAxkBAAEDHgZg4t-lq_j-8cwh_CkhjGEMbpK2rAACsxAAAnfSGUs8RQQB85KDVB4E",
+            "CQACAgIAAxkBAAEDHgdg4t-p_cZA3E1pIhOZUGCtr61smgACtBAAAnfSGUvLSyprlSISYh4E"
+            };
+
         static void Main(string[] args)
         {
             client = new TelegramBotClient(token);
@@ -90,9 +104,14 @@ namespace bot_tg_sharp
                             }
                             catch
                             {
+                                string res = "";
+                                for (var i = 1; i < args.Length; i++)
+                                {
+                                    res+=args[i];
+                                }
                                 var reverse = await client.SendTextMessageAsync(
                                 msg.Chat.Id,
-                                text: ReverseText(args[1]),
+                                text: ReverseText(res),
                                 replyToMessageId: msg.MessageId     
                                 );
                             }
@@ -141,12 +160,22 @@ namespace bot_tg_sharp
                     case "/anekdot@quantumlamborge_bot":
                     case "/anekdot":                
                         msg = await client.SendAudioAsync(
-                        chatId: e.Message.Chat,
-                        audio: sound_file_id_stalker[rnd.Next(8)],
-                        title: "Quantum - Анекдот",
-                        caption: "Внимение анекдот!",
-                        replyToMessageId: msg.MessageId                        
+                            chatId: e.Message.Chat,
+                            audio: sound_file_id_stalker[rnd.Next(8)],
+                            title: "Quantum - Анекдот",
+                            caption: "Внимение анекдот!",
+                            replyToMessageId: msg.MessageId                        
                         );          
+                    break;
+
+                    case "/gachi@quantumlamborge_bot":
+                    case "/gachi":
+                        msg = await client.SendAudioAsync(
+                            chatId: e.Message.Chat,
+                            audio: gachi_sound[rnd.Next(gachi_sound.Length + 1)],
+                            title: "Gachi - Sound",
+                            replyToMessageId: msg.MessageId                        
+                        );
                     break;
 
                     case "/doom@quantumlamborge_bot":
@@ -158,6 +187,8 @@ namespace bot_tg_sharp
                         replyToMessageId: msg.MessageId                        
                         );
                     break;
+
+                    
 
                     case "/randomfile@quantumlamborge_bot":
                     case "/randomfile":
@@ -242,7 +273,7 @@ namespace bot_tg_sharp
                     case "/sendmsg":
                     if (msg.Chat.Id == 662959105)
                     {
-                        if (args.Length == 3)
+                        if (args.Length >= 3)
                         {
                             var send = await client.SendTextMessageAsync(
                                 chatId: args[1],
@@ -259,6 +290,8 @@ namespace bot_tg_sharp
                         }
                     }    
                     break;
+
+
 
 
                 }
