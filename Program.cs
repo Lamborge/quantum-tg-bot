@@ -179,7 +179,7 @@ namespace bot_tg_sharp
                     case "/gachi":
                         msg = await client.SendAudioAsync(
                             chatId: e.Message.Chat,
-                            audio: gachi_sound[rnd.Next(gachi_sound.Length + 1)],
+                            audio: gachi_sound[rnd.Next(gachi_sound.Length)],
                             title: "Gachi - Sound",
                             replyToMessageId: msg.MessageId                        
                         );
