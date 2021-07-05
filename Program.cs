@@ -114,7 +114,7 @@ namespace bot_tg_sharp
                                 string res = "";
                                 for (var i = 1; i < args.Length; i++)
                                 {
-                                    res+=args[i];
+                                    res+=args[i] + " ";
                                 }
                                 var reverse = await client.SendTextMessageAsync(
                                 msg.Chat.Id,
