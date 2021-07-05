@@ -280,7 +280,7 @@ namespace bot_tg_sharp
                     case "/sendmsg":
                     if (msg.Chat.Id == 662959105)
                     {
-                        if (args.Length >= 3)
+                        try
                         {
                             string res = "";
                                 for (var i = 1; i < args.Length; i++)
@@ -289,12 +289,12 @@ namespace bot_tg_sharp
                                 }
 
                             var send = await client.SendTextMessageAsync(
-                                chatId: args[1],
+                                chatId: args[1]
                                 text: $"*Отправитель:* Lamborge \n *Сообщение:* \n{res}",
                                 parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
                             );
                         }
-                        else
+                        catch
                         {
                             var send = await client.SendTextMessageAsync(
                                 chatId: msg.Chat.Id,
