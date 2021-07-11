@@ -235,10 +235,9 @@ namespace bot_tg_sharp
 
                     case "/leonidussaks@quantumlamborge_bot":
                     case "/leonidussaks":
-                        var ping = await client.SendTextMessageAsync(
+                        var leonid = await client.SendTextMessageAsync(
                             chatId: msg.Chat.Id,
                             text: "чё",
-                            parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown,
                             replyToMessageId: msg.MessageId
                         );
                     break;
