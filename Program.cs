@@ -233,8 +233,8 @@ namespace bot_tg_sharp
                         );
                     break; 
 
-                    case "/leonidussaks.sh@quantumlamborge_bot":
-                    case "/leonidussaks.sh":
+                    case "/leonidussaks@quantumlamborge_bot":
+                    case "/leonidussaks":
                         var ping = await client.SendTextMessageAsync(
                             chatId: msg.Chat.Id,
                             text: "чё",
