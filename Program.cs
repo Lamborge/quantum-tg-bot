@@ -233,6 +233,16 @@ namespace bot_tg_sharp
                         );
                     break; 
 
+                    case "/leonidussaks.sh@quantumlamborge_bot":
+                    case "/leonidussaks.sh":
+                        var ping = await client.SendTextMessageAsync(
+                            chatId: msg.Chat.Id,
+                            text: "чё",
+                            parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown,
+                            replyToMessageId: msg.MessageId
+                        );
+                    break;
+
                     case "/asciipic@quantumlamborge_bot":
                     case "/asciipic":
                         if (args.Length == 1)
