@@ -242,6 +242,15 @@ namespace bot_tg_sharp
                         );
                     break;
 
+                    case "/gentoo@quantumlamborge_bot":
+                    case "/gentoo":
+                        var leonid = await client.SendTextMessageAsync(
+                            chatId: msg.Chat.Id,
+                            text: "install gentoo lol its best distro itw",
+                            replyToMessageId: msg.MessageId
+                        );
+                    break;
+
                     case "/asciipic@quantumlamborge_bot":
                     case "/asciipic":
                         if (args.Length == 1)
