@@ -244,7 +244,7 @@ namespace bot_tg_sharp
 
                     case "/gentoo@quantumlamborge_bot":
                     case "/gentoo":
-                        var leonid = await client.SendTextMessageAsync(
+                        var gentoo = await client.SendTextMessageAsync(
                             chatId: msg.Chat.Id,
                             text: "install gentoo lol its best distro itw",
                             replyToMessageId: msg.MessageId
