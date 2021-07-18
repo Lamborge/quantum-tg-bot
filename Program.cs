@@ -87,12 +87,23 @@ namespace bot_tg_sharp
                         );
                     break;
 
+                    /*case "/shmil@quantumlamborge_bot":
+                    case "/shmil":
+                    using (var stream = System.IO.File.OpenRead($"./temp/video/video.mp4")) {
+                        var video = await client.SendVideoAsync(
+                            chatId: msg.Chat.Id,
+                            replyToMessageId: msg.MessageId,
+                            video: stream,
+                            supportsStreaming: true
+                        );}
+                    break;*/
+
                     case "/shmil@quantumlamborge_bot":
                     case "/shmil":
                         var video = await client.SendVideoAsync(
                             chatId: msg.Chat.Id,
                             replyToMessageId: msg.MessageId,
-                            video: "BAACAgIAAxkBAAEDECNg2rf5KM5oeea1_TEg45LSBo55DQACRg8AAsTP0UoJUTgBIQ7GqR4E",
+                            video: "BAACAgIAAxkBAAEDQT5g9Ca7Ha_TJKzp2NrdjV1aRB3KVgACGQ8AAtDfoEsKJ4ZedgoGth4E",
                             supportsStreaming: true
                         );
                     break;
