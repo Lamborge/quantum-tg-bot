@@ -17,31 +17,6 @@ namespace bot_tg_sharp
         private static TelegramBotClient client;
         private static Random rnd = new Random();
 
-        static string[] sound_file_id_stalker = {
-            "CQACAgIAAxkBAAEDD_1g2rVgmO_5djk_99E0qxyeEFsLkAACOw8AAsTP0Upxnw72aGofhB4E",
-            "CQACAgIAAxkBAAEDD_5g2rVo9VM0rIF54K9HAAH7UyoI-JgAAjwPAALEz9FKk1JeRvJP5qEeBA",
-            "CQACAgIAAxkBAAEDD_9g2rVrRU1dEvmdhSj-8wkrYE7x1wACPQ8AAsTP0Urxn_-05KmVah4E",
-            "CQACAgIAAxkBAAEDEAABYNq1biwdWjzSA1VrNfukSU7QIxkAAj4PAALEz9FKfjmhXLojrR4eBA",
-            "CQACAgIAAxkBAAEDEAFg2rVxmitO1b78ttxq3vBf4BZtzgACPw8AAsTP0UoZEOSe-3Tnvh4E",
-            "CQACAgIAAxkBAAEDEAJg2rV0_Dtf3zlDbp1O4s6GRAmPwQACQA8AAsTP0Urw86HHV1W5pR4E",
-            "CQACAgIAAxkBAAEDEANg2rV3zH0GrtR9BWoeMLSR8_jGcwACQQ8AAsTP0Uq0V6RYB2xbVB4E",
-            "CQACAgIAAxkBAAEDEARg2rV69A5CUJuujmSiuZduob9T2gACQg8AAsTP0UqtrxZgOn_klR4E"
-            };
-
-        static string[] gachi_sound = {
-            "CQACAgIAAxkBAAEDHf1g4t-KN3cjmOiLD1ATQiCMXrufSQACqhAAAnfSGUtiy-i21-8_th4E",
-            "CQACAgIAAxkBAAEDHf5g4t-OtP-oClmxCji1cdp6I5vCQAACqxAAAnfSGUvJLvRTShVINR4E",
-            "CQACAgIAAxkBAAEDHf9g4t-RgkfkdS7fkflFJFyfUaliLgACrBAAAnfSGUvQHkn_OLTxfx4E",
-            "CQACAgIAAxkBAAEDHgABYOLflDZIUOASevokwfTYsm-VaV8AAq0QAAJ30hlLvhYBsBi_VDoeBA",
-            "CQACAgIAAxkBAAEDHgFg4t-X2KbcqtRD_BcaMlELl8yw7QACrhAAAnfSGUs8npqSGBI4RB4E",
-            "CQACAgIAAxkBAAEDHgJg4t-aDI_OIbdbDWlTPUcjpnac0gACrxAAAnfSGUud2GbZxz7QJh4E",
-            "CQACAgIAAxkBAAEDHgNg4t-diJVz0c8ytrRxCLepWNUO1wACsBAAAnfSGUsz6o-WkqvDEB4E",
-            "CQACAgIAAxkBAAEDHgRg4t-g3jau-kzRYlD2Yier7o94SwACsRAAAnfSGUv44zeiztoSNx4E",
-            "CQACAgIAAxkBAAEDHgVg4t-jLb5sjvzauZQ12S6brwvK6AACshAAAnfSGUv1vPmIyX9dEx4E",
-            "CQACAgIAAxkBAAEDHgZg4t-lq_j-8cwh_CkhjGEMbpK2rAACsxAAAnfSGUs8RQQB85KDVB4E",
-            "CQACAgIAAxkBAAEDHgdg4t-p_cZA3E1pIhOZUGCtr61smgACtBAAAnfSGUvLSyprlSISYh4E"
-            };
-
         static void Main(string[] args)
         {
             client = new TelegramBotClient(token);
@@ -100,12 +75,13 @@ namespace bot_tg_sharp
 
                     case "/shmil@quantumlamborge_bot":
                     case "/shmil":
+                    using (var stream = System.IO.File.OpenRead($"./video/shmil.mp4")){
                         var video = await client.SendVideoAsync(
                             chatId: msg.Chat.Id,
                             replyToMessageId: msg.MessageId,
-                            video: "BAACAgIAAxkBAAEDQT5g9Ca7Ha_TJKzp2NrdjV1aRB3KVgACGQ8AAtDfoEsKJ4ZedgoGth4E",
+                            video: stream,
                             supportsStreaming: true
-                        );
+                        );}
                     break;
 
                     case "/reverse@quantumlamborge_bot":
@@ -176,35 +152,38 @@ namespace bot_tg_sharp
                     break;
 
                     case "/anekdot@quantumlamborge_bot":
-                    case "/anekdot":                
-                        msg = await client.SendAudioAsync(
+                    case "/anekdot":     
+                    using (var stream = System.IO.File.OpenRead($"./sound/stalker/{rnd.Next(8)}.mp3")){           
+                        var anekdot = await client.SendAudioAsync(
                             chatId: e.Message.Chat,
-                            audio: sound_file_id_stalker[rnd.Next(8)],
+                            audio: stream,
                             title: "Quantum - Анекдот",
                             caption: "Внимение анекдот!",
                             replyToMessageId: msg.MessageId                        
                         );          
-                    break;
+                    break;}
 
                     case "/gachi@quantumlamborge_bot":
                     case "/gachi":
-                        msg = await client.SendAudioAsync(
+                    using (var stream = System.IO.File.OpenRead($"./sound/gachi/{rnd.Next(11)}.mp3")){  
+                        var gachi = await client.SendAudioAsync(
                             chatId: e.Message.Chat,
-                            audio: gachi_sound[rnd.Next(gachi_sound.Length)],
-                            title: "Gachi - Sound",
+                            audio: stream,
+                            title: "GachiRemix - Quantum",
                             replyToMessageId: msg.MessageId                        
                         );
-                    break;
+                    break;}
 
                     case "/doom@quantumlamborge_bot":
                     case "/doom":
-                        msg = await client.SendAudioAsync(
+                    using (var stream = System.IO.File.OpenRead("./sound/doom/ripandtear.mp3")){  
+                        var doom = await client.SendAudioAsync(
                         chatId: e.Message.Chat,
-                        audio: "CQACAgIAAxkBAAEDECBg2rYpaPYRsgo59qVK7K8XOaPIyQACRA8AAsTP0Up8PPGJpGwgEh4E",
+                        audio: stream,
                         title: "Rip and Tear - Until it is Done",
                         replyToMessageId: msg.MessageId                        
                         );
-                    break;
+                    break;}
 
                     
 
@@ -224,7 +203,7 @@ namespace bot_tg_sharp
                         }
 
                         using (var stream = System.IO.File.OpenRead($"./file/file.txt")) {
-                            msg = await client.SendDocumentAsync(
+                            var randomfile = await client.SendDocumentAsync(
                             chatId: e.Message.Chat,
                             document: stream,                            
                             replyToMessageId: msg.MessageId                        
