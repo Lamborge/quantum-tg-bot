@@ -20,10 +20,10 @@ namespace bot_tg_sharp
         static void Main(string[] args)
         {
 
-            if (File.Exists($"./token.txt"))
+            if (File.Exists($"./.token"))
             {
                 // чтение из файла
-                using (FileStream fstream = File.OpenRead($"./token.txt"))
+                using (FileStream fstream = File.OpenRead($"./.token"))
                 {
                     // преобразуем строку в байты
                     byte[] array = new byte[fstream.Length];
@@ -39,7 +39,7 @@ namespace bot_tg_sharp
                 Console.WriteLine("Введите токен бота: ");
                 string local_token = Console.ReadLine();
                 // запись в файл
-                using (FileStream fstream = new FileStream($"./token.txt", FileMode.OpenOrCreate))
+                using (FileStream fstream = new FileStream($"./.token", FileMode.OpenOrCreate))
                 {
                     // преобразуем строку в байты
                     byte[] array = System.Text.Encoding.Default.GetBytes(local_token);
