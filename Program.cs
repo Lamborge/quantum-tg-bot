@@ -16,6 +16,7 @@ namespace bot_tg_sharp
         private static string token{get; set;} = "1832829208:AAFkL4CwCprJoWWPEby8P1MODu8shUKuqbE";
         private static TelegramBotClient client;
         private static Random rnd = new Random();
+        static string[] categories_ascii = {"doom","jorjy","leonid","popug","distro"};
 
         static void Main(string[] args)
         {
@@ -241,6 +242,8 @@ namespace bot_tg_sharp
                         );
                     break;
 
+
+                    
                     case "/asciipic@quantumlamborge_bot":
                     case "/asciipic":
                         if (args.Length == 1)
@@ -251,6 +254,23 @@ namespace bot_tg_sharp
                                     replyToMessageId: msg.MessageId,
                                     parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
                                 );
+                        }
+
+                        else if(args.Length >= 2 && args[1] == "--list")
+                        {
+                            string res = "";
+
+                            foreach (var item in categories_ascii)
+                            {
+                                res += item + "/\n";
+                            }
+
+                            var asciipic = await client.SendTextMessageAsync(
+                                chatId: msg.Chat.Id,
+                                text: res        
+                            );
+
+                            
                         }
 
                         else if (File.Exists($"./ascii/{args[1]}.txt"))
@@ -278,7 +298,8 @@ namespace bot_tg_sharp
                         {
                             var asciipic = await client.SendTextMessageAsync(
                                     chatId: msg.Chat.Id,
-                                    text: "Такого рисунка нет",
+                                    text: "Такого рисунка нет \n"+
+                                    "Используйте аргумент --list что бы посмотреть список категорий",
                                     replyToMessageId: msg.MessageId
                                 );
                         }
