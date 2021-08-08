@@ -277,18 +277,9 @@ namespace bot_tg_sharp
                     
                     case "/asciipic@quantumlamborge_bot":
                     case "/asciipic":
-                        if (args.Length == 1)
-                        {
-                            var asciipic = await client.SendTextMessageAsync(
-                                    chatId: msg.Chat.Id,
-                                    text: "*Не указан рисунок*\n"+
-                                    "Используйте аргумент --list что бы посмотреть список категорий",
-                                    replyToMessageId: msg.MessageId,
-                                    parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
-                                );
-                        }
+                        bool can = true;
 
-                        else if(args.Length == 2)
+                        if(args.Length >= 2)
                         {
                             char[] check = args[1].ToCharArray();
                             foreach (var item in check)
@@ -300,9 +291,20 @@ namespace bot_tg_sharp
                                     text: "Хорошая попытка",
                                     replyToMessageId: msg.MessageId,
                                     parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
-                                );
+                                ); can = false; break;
                                 }
                             }
+                        }
+
+                        if (args.Length == 1)
+                        {
+                            var asciipic = await client.SendTextMessageAsync(
+                                    chatId: msg.Chat.Id,
+                                    text: "*Не указан рисунок*\n"+
+                                    "Используйте аргумент --list что бы посмотреть список категорий",
+                                    replyToMessageId: msg.MessageId,
+                                    parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
+                                );
                         }
 
                         else if(args.Length >= 2 && args[1] == "--list")
@@ -322,7 +324,7 @@ namespace bot_tg_sharp
                             
                         }
 
-                        else if (File.Exists($"./ascii/{args[1]}.txt"))
+                        else if (File.Exists($"./ascii/{args[1]}.txt") && can)
                         {
                             string textFromFile = "";
                             using (FileStream fstream = File.OpenRead($"./ascii/{args[1]}.txt"))
