@@ -4,3 +4,4 @@ jp2a/
 bin/
 temp/
 token.txt
+.token

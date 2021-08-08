@@ -288,6 +288,23 @@ namespace bot_tg_sharp
                                 );
                         }
 
+                        else if(args.Length == 2)
+                        {
+                            char[] check = args[1].ToCharArray();
+                            foreach (var item in check)
+                            {
+                                if (item == '.')
+                                {
+                                    var asciipic = await client.SendTextMessageAsync(
+                                    chatId: msg.Chat.Id,
+                                    text: "Хорошая попытка",
+                                    replyToMessageId: msg.MessageId,
+                                    parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
+                                );
+                                }
+                            }
+                        }
+
                         else if(args.Length >= 2 && args[1] == "--list")
                         {
                             string res = "";
