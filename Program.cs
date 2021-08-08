@@ -11,15 +11,46 @@ using Microsoft.Extensions.Configuration;
 namespace bot_tg_sharp
 {
     class Program
-    {
-
-        private static string token{get; set;} = "1832829208:AAFkL4CwCprJoWWPEby8P1MODu8shUKuqbE";
+    {           
+        private static string token{get; set;}
         private static TelegramBotClient client;
         private static Random rnd = new Random();
         static string[] categories_ascii = {"doom","jorjy","leonid","popug","distro"};
 
         static void Main(string[] args)
         {
+
+            if (File.Exists($"./token.txt"))
+            {
+                // чтение из файла
+                using (FileStream fstream = File.OpenRead($"./token.txt"))
+                {
+                    // преобразуем строку в байты
+                    byte[] array = new byte[fstream.Length];
+                    // считываем данные
+                    fstream.Read(array, 0, array.Length);
+                    // декодируем байты в строку
+                    string textFromFile = System.Text.Encoding.Default.GetString(array);
+                    token = textFromFile;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Введите токен бота: ");
+                string local_token = Console.ReadLine();
+                // запись в файл
+                using (FileStream fstream = new FileStream($"./token.txt", FileMode.OpenOrCreate))
+                {
+                    // преобразуем строку в байты
+                    byte[] array = System.Text.Encoding.Default.GetBytes(local_token);
+                    // запись массива байтов в файл
+                    fstream.Write(array, 0, array.Length);
+                    Console.WriteLine("Токен записан в файл");
+                }
+
+                token = local_token;
+            }
+
             client = new TelegramBotClient(token);
             client.StartReceiving();
             client.OnMessage += OnMessageHandler;
