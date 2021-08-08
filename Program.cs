@@ -355,6 +355,14 @@ namespace bot_tg_sharp
                         
                     break;
 
+                    /*case "/duck":
+                        if(msg.ReplyToMessage.Audio != null)
+                        {
+                            using (var stream = System.IO.File.OpenWrite("./sound/duck/temp.mp3")){  
+                                client.GetFileAsync(msg.ReplyToMessage.Audio.FileId, stream);}
+                        }
+                    break;*/
+
                     case "/sendmsg":
                     if (msg.Chat.Id == 662959105)
                     {
