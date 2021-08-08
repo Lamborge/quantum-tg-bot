@@ -250,7 +250,8 @@ namespace bot_tg_sharp
                         {
                             var asciipic = await client.SendTextMessageAsync(
                                     chatId: msg.Chat.Id,
-                                    text: "*Не указан рисунок*",
+                                    text: "*Не указан рисунок*\n"+
+                                    "Используйте аргумент --list что бы посмотреть список категорий",
                                     replyToMessageId: msg.MessageId,
                                     parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
                                 );
