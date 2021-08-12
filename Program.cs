@@ -378,7 +378,7 @@ namespace bot_tg_sharp
 
                             var send = await client.SendTextMessageAsync(
                                 chatId: args[1],
-                                text: $"*Отправитель:* Lamborge \n*Сообщение:* \n{res}",
+                                text: $"{res}",
                                 parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
                             );
                         }
